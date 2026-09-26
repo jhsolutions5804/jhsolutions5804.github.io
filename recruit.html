@@ -374,10 +374,8 @@ const db = getFirestore(app);
 /* ── 공고 설정: 동시에 여러 공고를 운영할 때 recruit.html?job=키 로 접속하면
    타이틀이 자동으로 바뀝니다. 공고 추가/수정/삭제는 이 객체만 편집하면 됩니다. ── */
 const JOBS = {
-  default: { badge: 'Recruitment', title: '함께 성장할 현장 인재를 찾습니다' },
-  'fcu-install': { badge: 'Recruitment · FCU 설치팀', title: 'FCU 설치 기술인력을 모집합니다' },
-  'dobi-team':   { badge: 'Recruitment · 도비팀', title: '자재반입·실외기 안착 인력을 모집합니다' },
-  'safety-assist': { badge: 'Recruitment · 안전관리팀', title: '현장 안전관리 보조 인력을 모집합니다' }
+  default: { badge: 'Recruitment', title: '함께 성장할 현장 인재를 찾습니다' }
+  // 예시) 'fcu-install': { badge:'Recruitment · FCU 설치팀', title:'FCU 설치 기술인력 모집' }
 };
 const params = new URLSearchParams(window.location.search);
 const jobKey = params.get('job') || 'default';
