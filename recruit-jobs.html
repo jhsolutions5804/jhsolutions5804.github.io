@@ -99,7 +99,25 @@
 
 <div class="jobs-wrap">
 
+  <!-- 실제 공고 등록 전까지 임시 안내 -->
+  <div class="job-card" style="justify-content:center; text-align:center; flex-direction:column; padding:56px 30px;">
+    <div class="job-title" style="margin-bottom:8px;">현재 진행 중인 채용 공고가 없습니다</div>
+    <div class="job-desc" style="max-width:400px; margin:0 auto;">새로운 공고가 등록되면 이곳에 안내해 드리겠습니다.</div>
+  </div>
+
+  <!-- 예시 구조 (실제 공고 확정 시 이 형태로 추가):
   <div class="job-card">
+    <div class="job-main">
+      <span class="job-tag">팀명</span>
+      <div class="job-title">모집 제목</div>
+      <div class="job-meta"><span>근무지</span><span>조건1</span><span>조건2</span></div>
+      <div class="job-desc">상세 설명</div>
+    </div>
+    <a href="recruit.html?job=키" class="job-apply">지원하기</a>
+  </div>
+  -->
+
+  <div class="job-card" hidden>
     <div class="job-main">
       <span class="job-tag">FCU 설치팀</span>
       <div class="job-title">FCU 설치 기술인력 모집</div>
@@ -109,7 +127,7 @@
     <a href="recruit.html?job=fcu-install" class="job-apply">지원하기</a>
   </div>
 
-  <div class="job-card">
+  <div class="job-card" hidden>
     <div class="job-main">
       <span class="job-tag">도비팀</span>
       <div class="job-title">자재반입·실외기 안착 인력 모집</div>
@@ -119,7 +137,7 @@
     <a href="recruit.html?job=dobi-team" class="job-apply">지원하기</a>
   </div>
 
-  <div class="job-card">
+  <div class="job-card" hidden>
     <div class="job-main">
       <span class="job-tag">안전관리팀</span>
       <div class="job-title">현장 안전관리 보조 인력 모집</div>
