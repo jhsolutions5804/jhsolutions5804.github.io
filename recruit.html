@@ -187,7 +187,15 @@
     body { background:var(--white); }
     .wizard-wrap { padding:0; max-width:100%; }
     .panel-card { border:none; box-shadow:none; padding:0; }
+    /* 제출 후 인쇄: 접수 안내 화면 대신 이력서(#printResume)만 출력 */
+    #successScreen .icon, #successScreen h2, #successScreen p, #successScreen .btn-row { display:none !important; }
+    #printResume { display:block !important; }
+    #printResume, #printResume * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }   /* 인쇄 설정에서 '배경 그래픽'이 꺼져 있어도 파란 제목줄(흰 글자)이 사라지지 않게 */
+    #printResume .print-title { text-align:center; font-size:1.4rem; font-weight:800; letter-spacing:0.4em; margin:0 0 6px; }
+    #printResume .print-meta { text-align:center; font-size:0.8rem; color:#5C6F8A; margin-bottom:16px; }
+    #printResume .resume-preview { border-radius:0; page-break-inside:avoid; }
   }
+  .print-only { display:none; }
 </style>
 </head>
 <body>
@@ -342,6 +350,7 @@
       <button type="button" class="btn-primary" id="printBtn" onclick="window.print()">이력서 인쇄 / PDF 저장</button>
       <a href="index.html" class="btn-ghost" style="text-decoration:none; display:inline-flex; align-items:center;">홈으로 돌아가기</a>
     </div>
+    <div class="print-only" id="printResume"></div>
   </div>
 
 </div>
@@ -595,6 +604,14 @@ window.submitApplication = async function(){
     data.jobKey = jobKey;
     data.jobTitle = jobInfo.title;
     await addDoc(collection(db, 'recruit_applicants'), { ...data, createdAt: serverTimestamp() });
+    try {   // 인쇄·PDF 저장용: 제출한 내용 그대로 이력서를 만들어 둔다(폼이 숨겨져도 인쇄되도록 별도 영역에 복사)
+      renderResumePreview();
+      const esc = t => (t||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      document.getElementById('printResume').innerHTML =
+        '<div class="print-title">입 사 지 원 서</div>' +
+        '<div class="print-meta">' + esc(data.jobTitle) + ' · 제출일 ' + esc(new Date().toLocaleDateString('ko-KR')) + '</div>' +
+        document.getElementById('resumePreview').outerHTML;
+    } catch (e) { console.warn('이력서 인쇄 영역 생성 실패:', e); }
     document.getElementById('recruitForm').hidden = true;
     document.getElementById('stepper').hidden = true;
     document.getElementById('successScreen').hidden = false;
