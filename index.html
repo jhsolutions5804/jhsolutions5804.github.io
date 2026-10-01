@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JH Solutions — 현장 관리 · 인력 도급 전문기업</title>
+  <title>JH Solutions — 현장 관리 대행 전문기업</title>
+  <meta name="description" content="JH Solutions는 반도체 FAB 건설 현장의 시공관리·안전관리·품질관리를 대행하는 현장 관리 대행 전문기업입니다." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <style>
@@ -263,49 +264,72 @@
 
     /* ── TRACK RECORD ── */
     .track { background: var(--gray-light); }
-    .track-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; margin-bottom: 48px;
+    .tr-safety {
+      display: flex; align-items: center; gap: 32px;
+      padding: 28px 36px; margin-bottom: 12px;
+      background: var(--blue); color: var(--white); border-radius: 14px;
     }
-    .track-stat {
-      background: var(--white); border-radius: 12px; padding: 24px 20px;
+    .tr-safety-num {
+      flex: none; font-family: 'Inter', sans-serif; font-size: 6rem;
+      font-weight: 900; line-height: 1; letter-spacing: -0.04em;
+    }
+    .tr-safety-num small { font-size: 2.2rem; font-weight: 700; letter-spacing: 0; margin-left: 4px; }
+    .tr-safety-text { padding-left: 32px; border-left: 1px solid rgba(255,255,255,0.35); }
+    .tr-safety-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em; }
+    .tr-safety-sub { margin-top: 4px; font-size: 0.92rem; color: var(--blue-light); }
+
+    .tr-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .tr-stat {
+      background: var(--white); border-radius: 12px; padding: 22px 16px;
       border: 1.5px solid #E5EDF7; text-align: center;
     }
-    .track-stat .t-num {
-      font-family: 'Inter', sans-serif; font-size: 2rem;
-      font-weight: 900; color: var(--blue); letter-spacing: -0.02em;
+    .tr-stat .t-num { font-family: 'Inter', sans-serif; font-size: 1.9rem; font-weight: 900; color: var(--blue); letter-spacing: -0.02em; }
+    .tr-stat .t-label { font-size: 0.78rem; color: var(--gray); margin-top: 4px; font-weight: 500; line-height: 1.5; }
+    .tr-stat .t-sub { font-size: 0.72rem; color: var(--blue-mid); margin-top: 6px; }
+
+    .tr-head { margin: 56px 0 14px; }
+    .tr-head h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; }
+
+    .tr-hist { overflow: hidden; background: var(--white); border-radius: 12px; box-shadow: 0 2px 12px rgba(29,91,166,0.06); }
+    .tr-year { display: flex; align-items: baseline; gap: 10px; padding: 10px 20px; background: var(--blue-pale); }
+    .tr-year strong { font-family: 'Inter', sans-serif; font-size: 1.05rem; font-weight: 800; color: var(--blue); }
+    .tr-year span { font-size: 0.78rem; color: var(--gray); }
+    .tr-rows { list-style: none; }
+    .tr-row {
+      display: grid; grid-template-columns: 170px 56px 1fr; gap: 4px 16px;
+      padding: 13px 20px; border-top: 1px solid #F0F4F9; align-items: baseline;
     }
-    .track-stat .t-label {
-      font-size: 0.78rem; color: var(--gray); margin-top: 4px;
-      font-weight: 500; line-height: 1.5;
+    .tr-year + .tr-rows .tr-row:first-child { border-top: none; }
+    .tr-row:hover { background: var(--blue-pale); }
+    .tr-period { font-size: 0.85rem; color: var(--gray); white-space: nowrap; }
+    .tr-region { font-size: 0.85rem; font-weight: 600; }
+    .tr-facility { font-size: 0.9rem; font-weight: 600; }
+    .tr-pill {
+      display: inline-block; margin-left: 8px; padding: 1px 9px;
+      font-size: 0.72rem; font-weight: 600; border-radius: 20px;
+      color: var(--gray); background: var(--gray-light);
     }
-    .track-stat .t-sub {
-      font-size: 0.72rem; color: var(--blue-mid); margin-top: 6px;
-    }
-    .track-table-wrap { overflow-x: auto; }
-    table {
-      width: 100%; border-collapse: collapse;
-      background: var(--white); border-radius: 12px;
-      overflow: hidden; font-size: 0.85rem;
-      box-shadow: 0 2px 12px rgba(29,91,166,0.06);
-    }
-    thead th {
-      background: var(--blue); color: var(--white);
-      padding: 13px 16px; text-align: left;
-      font-weight: 600; font-size: 0.8rem;
-    }
-    tbody td {
-      padding: 12px 16px; border-bottom: 1px solid #F0F4F9;
-      color: var(--black); vertical-align: top;
-    }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover td { background: var(--blue-pale); }
-    .badge {
-      display: inline-block;
-      font-size: 0.72rem; font-weight: 600;
-      padding: 3px 9px; border-radius: 20px;
-      background: var(--blue-pale); color: var(--blue);
+    .tr-pill.live { color: var(--blue); background: var(--blue-pale); border: 1px solid var(--blue); }
+    .tr-note { margin-top: 12px; font-size: 0.75rem; color: var(--gray); }
+
+    @media (max-width: 720px) {
+      .tr-safety { gap: 20px; padding: 22px 20px; }
+      .tr-safety-num { font-size: 4rem; }
+      .tr-safety-num small { font-size: 1.5rem; }
+      .tr-safety-text { padding-left: 20px; }
+      .tr-safety-title { font-size: 1.25rem; }
+      .tr-safety-sub { font-size: 0.8rem; }
+      .tr-stats { gap: 8px; }
+      .tr-stat { padding: 16px 8px; }
+      .tr-stat .t-num { font-size: 1.4rem; }
+      .tr-stat .t-label { font-size: 0.72rem; }
+      .tr-stat .t-sub { font-size: 0.66rem; }
+      .tr-head { margin-top: 40px; }
+      .tr-row { grid-template-columns: auto 1fr; grid-template-areas: "period region" "facility facility"; padding: 12px 16px; }
+      .tr-period { grid-area: period; }
+      .tr-region { grid-area: region; }
+      .tr-facility { grid-area: facility; }
+      .tr-year { padding: 10px 16px; }
     }
 
     /* ── CONTACT ── */
@@ -371,10 +395,6 @@
       section { padding: 60px 6vw; }
       .section-title { font-size: 1.5rem; }
 
-      /* TRACK TABLE */
-      .track-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      table { min-width: 560px; }
-
       /* PROCESS STEPS */
       .process-steps { grid-template-columns: 1fr 1fr; }
 
@@ -412,9 +432,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">현장 관리 · 인력 도급 전문기업</div>
-    <h1>강화되는 중대재해처벌법 시대,<br><em>안전한 현장의 기준</em></h1>
-    <p class="hero-sub">JH Solutions는 체계적인 안전보건관리체계 구축과 검증된 숙련 인력의 신속한 공급으로 고객사의 산업안전 리스크를 효과적으로 관리합니다.</p>
+    <div class="hero-eyebrow">현장 관리 대행 전문기업</div>
+    <h1>반도체 FAB 건설 현장의<br><em>시공·안전·품질 관리 대행</em></h1>
+    <p class="hero-sub">JH Solutions는 시공관리, 안전관리, 품질관리를 전담 관리자가 현장에서 직접 대행합니다. 체계적인 관리체계로 고객사의 공정·안전·품질 리스크를 효과적으로 관리합니다.</p>
     <div class="hero-actions">
       <a href="#services" class="btn-primary">사업 영역 보기</a>
       <a href="#contact" class="btn-secondary">무료 상담 문의</a>
@@ -425,20 +445,20 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat-item">
-    <span class="stat-num">26건</span>
-    <span class="stat-label">현장 관리 위탁 계약</span>
+    <span class="stat-num">28건</span>
+    <span class="stat-label">현장 관리 수행</span>
   </div>
   <div class="stat-item">
     <span class="stat-num">5년</span>
     <span class="stat-label">현장관리 누적 경력</span>
   </div>
   <div class="stat-item">
-    <span class="stat-num">100%</span>
-    <span class="stat-label">재해율 0건 유지율</span>
+    <span class="stat-num">0건</span>
+    <span class="stat-label">안전사고 발생</span>
   </div>
   <div class="stat-item">
-    <span class="stat-num">100명+</span>
-    <span class="stat-label">기술직 인력 풀</span>
+    <span class="stat-num">2곳</span>
+    <span class="stat-label">현재 관리 중인 현장</span>
   </div>
 </div>
 
@@ -446,7 +466,7 @@
 <section class="strengths" id="strengths">
   <span class="section-label">Core Strengths</span>
   <h2 class="section-title">고객사가 안심할 수 있는<br>4가지 이유</h2>
-  <p class="section-desc">강화된 중대재해처벌법 환경에서 JH Solutions가 제공하는 차별화된 경쟁력입니다.</p>
+  <p class="section-desc">현장 관리 대행 전문기업 JH Solutions가 제공하는 차별화된 경쟁력입니다.</p>
   <div class="strength-grid">
     <div class="strength-card">
       <div class="strength-icon">⚖️</div>
@@ -454,9 +474,9 @@
       <p>산업안전보건법 및 중대재해처벌법 기준에 부합하는 안전보건관리체계를 구축·운영하여 법적 리스크를 사전에 예방합니다.</p>
     </div>
     <div class="strength-card">
-      <div class="strength-icon">👷</div>
-      <h3>검증된 전문 인력 도급</h3>
-      <p>직종별 자격·경력을 검증한 숙련 인력을 신속하게 배치하여 현장 생산성과 안전성을 동시에 확보합니다.</p>
+      <div class="strength-icon">🏗️</div>
+      <h3>시공·품질 통합 관리</h3>
+      <p>공정 계획, 협력사 조율, 시공 품질 검측을 하나의 관리 체계로 운영하여 공사 일정과 품질을 함께 관리합니다.</p>
     </div>
     <div class="strength-card">
       <div class="strength-icon">🔍</div>
@@ -475,7 +495,7 @@
 <section class="services" id="services">
   <span class="section-label">Business Areas</span>
   <h2 class="section-title">주요 사업 영역</h2>
-  <p class="section-desc">현장 시공관리부터 안전관리, 인력 도급까지 현장 운영의 전 과정을 원스톱으로 지원합니다.</p>
+  <p class="section-desc">시공관리, 안전관리, 품질관리까지 현장 운영의 핵심을 전담 관리자가 대행합니다.</p>
   <div class="service-grid">
     <div class="service-card">
       <div class="service-num">01</div>
@@ -499,12 +519,12 @@
     </div>
     <div class="service-card">
       <div class="service-num">03</div>
-      <h3>인력 도급</h3>
+      <h3>현장 품질 관리</h3>
       <ul class="service-list">
-        <li>직종별 숙련 인력 공급</li>
-        <li>자격·경력 사전 검증 매칭</li>
-        <li>결원 시 48시간 내 대체 투입</li>
-        <li>4대보험·근로계약 일체 대행</li>
+        <li>품질 기준 및 검측 항목 수립</li>
+        <li>자재 반입 검수 및 시공 상태 확인</li>
+        <li>검측 결과 시정 조치 및 이력 관리</li>
+        <li>품질 기록·준공 서류 정리</li>
       </ul>
     </div>
   </div>
@@ -529,7 +549,7 @@
     <div class="process-step">
       <div class="step-num">03</div>
       <h4>현장 모니터링</h4>
-      <p>상주 인력 배치 및 실시간 점검</p>
+      <p>상주 관리자 배치 및 실시간 점검</p>
     </div>
     <div class="process-step">
       <div class="step-num">04</div>
@@ -552,98 +572,123 @@
 <section class="track" id="track">
   <span class="section-label">Track Record</span>
   <h2 class="section-title">사업 실적</h2>
-  <p class="section-desc">삼성전자, SK하이닉스 등 국내 최대 반도체 FAB 건설 현장의 신뢰를 받아온 실적입니다.</p>
-  <div class="track-stats">
-    <div class="track-stat">
-      <div class="t-num">4건</div>
-      <div class="t-label">현재 진행 중인 현장</div>
-      <div class="t-sub">삼성전자 P4 Ph2 신축 현장 외</div>
+  <p class="section-desc">반도체 FAB 건설 현장의 공조설비 설치 공사에서 시공·안전·품질 관리를 맡아 온 이력입니다.</p>
+
+  <div class="tr-safety">
+    <div class="tr-safety-num">0<small>건</small></div>
+    <div class="tr-safety-text">
+      <div class="tr-safety-title">안전사고</div>
+      <div class="tr-safety-sub">현장 관리 수행 전 현장 기준</div>
     </div>
-    <div class="track-stat">
-      <div class="t-num">10명+</div>
-      <div class="t-label">관리직 인력 풀</div>
-      <div class="t-sub">현장관리, 공사서류, QC/QA 등</div>
+  </div>
+
+  <div class="tr-stats">
+    <div class="tr-stat">
+      <div class="t-num" id="tr-total">28건</div>
+      <div class="t-label">누적 현장 관리 수행</div>
+      <div class="t-sub" id="tr-since"></div>
     </div>
-    <div class="track-stat">
-      <div class="t-num">100명+</div>
-      <div class="t-label">기술직 인력 풀</div>
-      <div class="t-sub">공조, 배관, 골조, 잡철 등</div>
+    <div class="tr-stat">
+      <div class="t-num" id="tr-live">2건</div>
+      <div class="t-label">현재 관리 중인 현장</div>
+      <div class="t-sub">평택 반도체 FAB 현장</div>
     </div>
-    <div class="track-stat">
+    <div class="tr-stat">
       <div class="t-num">4개사</div>
       <div class="t-label">주요 협력 거래처</div>
       <div class="t-sub">귀뚜라미범양냉방, 다람이엔지 외</div>
     </div>
   </div>
-  <div class="track-table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>현장명</th>
-          <th>공사 내용</th>
-          <th>업무 내용</th>
-          <th>투입 인력</th>
-          <th>기간</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>삼성전자 P4 신축현장</strong></td>
-          <td>AHU, FCU, EHU 설치</td>
-          <td>
-            <span class="badge">시공관리</span>&nbsp;
-            <span class="badge">안전관리</span>&nbsp;
-            <span class="badge">인력도급</span>
-          </td>
-          <td>20명</td>
-          <td>2023.11 ~ 진행중</td>
-        </tr>
-        <tr>
-          <td><strong>SK하이닉스 청주 M15X 증축현장</strong></td>
-          <td>항온항습기, FCU 설치</td>
-          <td><span class="badge">인력도급</span></td>
-          <td>20명</td>
-          <td>2025.07 ~ 2026.04</td>
-        </tr>
-        <tr>
-          <td><strong>삼성디스플레이 기흥 SDR 신축현장</strong></td>
-          <td>FCU 설치</td>
-          <td>
-            <span class="badge">시공관리</span>&nbsp;
-            <span class="badge">인력도급</span>
-          </td>
-          <td>12명</td>
-          <td>2023.10 ~ 2024.06</td>
-        </tr>
-        <tr>
-          <td><strong>삼성전자 기흥 K1 SR1동 개보수현장</strong></td>
-          <td>EHU 설치</td>
-          <td><span class="badge">인력도급</span></td>
-          <td>10명</td>
-          <td>2022.12 ~ 2023.01</td>
-        </tr>
-        <tr>
-          <td><strong>삼성전자 P3 신축현장</strong></td>
-          <td>AHU, FCU, EHU, EHU(방폭) 설치</td>
-          <td>
-            <span class="badge">시공관리</span>&nbsp;
-            <span class="badge">안전관리</span>&nbsp;
-            <span class="badge">인력도급</span>
-          </td>
-          <td>20명</td>
-          <td>2022.03 ~ 2023.10</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+
+  <div class="tr-head"><h3>현장 관리 수행 이력</h3></div>
+  <div class="tr-hist" id="tr-hist"></div>
+  <p class="tr-note">※ 현장 정보는 보안상 지역과 시설 유형 기준으로 표기했습니다.</p>
 </section>
+<script>
+(function () {
+  // [지역, 시설, 시작, 종료(null=진행 중)]  — 동일 조건 건은 하나로 묶어 건수로 표시
+  var DATA = [
+    ['평택', '반도체 FAB·지원복합동', '2022.03', '2022.07'],
+    ['평택', '반도체 FAB·지원복합동', '2022.07', '2022.08'],
+    ['평택', '반도체 FAB동', '2022.08', '2023.03'],
+    ['평택', '반도체 지원복합동', '2022.09', '2022.11'],
+    ['평택', '반도체 FAB동', '2022.12', '2023.01'],
+    ['기흥', '반도체 생산동', '2022.12', '2023.02'],
+    ['평택', '반도체 FAB동', '2023.01', '2023.02'],
+    ['평택', '반도체 FAB 지원동', '2023.03', '2023.05'],
+    ['평택', '반도체 지원복합동', '2023.03', '2023.05'],
+    ['평택', '반도체 FAB동', '2023.06', '2023.08'],
+    ['평택', '반도체 FAB동', '2023.06', '2023.08'],
+    ['평택', '반도체 지원복합동', '2023.07', '2023.08'],
+    ['평택', '반도체 지원복합동', '2023.08', '2023.10'],
+    ['기흥', '디스플레이 연구시설', '2023.10', '2024.06'],
+    ['평택', '반도체 FAB동', '2023.11', '2024.06'],
+    ['평택', '반도체 FAB 지원동', '2023.11', '2023.11'],
+    ['평택', '반도체 FAB동', '2024.05', '2024.07'],
+    ['평택', '반도체 FAB동', '2024.10', '2025.05'],
+    ['기흥', '반도체 연구개발동', '2025.01', '2025.05'],
+    ['청주', '반도체 생산시설', '2025.02', '2025.05'],
+    ['청주', '반도체 생산시설', '2025.04', '2025.04'],
+    ['청주', '반도체 생산시설', '2025.07', '2025.11'],
+    ['청주', '반도체 생산시설', '2025.12', '2026.06'],
+    ['평택', '반도체 FAB동', '2026.03', null],
+    ['평택', '반도체 FAB동', '2026.03', null],
+    ['청주', '반도체 부속시설', '2026.03', '2026.04'],
+    ['화성', '반도체 생산동', '2026.07', '2026.09'],
+    ['청주', '반도체 생산시설', '2026.08', '2026.09']
+  ];
+
+  var total = DATA.length;
+  var groups = {};
+  var items = [];
+  DATA.forEach(function (d) {
+    var key = d.join('|');
+    if (groups[key]) { groups[key].count++; return; }
+    groups[key] = { region: d[0], facility: d[1], start: d[2], end: d[3], count: 1 };
+    items.push(groups[key]);
+  });
+  items.sort(function (a, b) {
+    if (a.start !== b.start) return a.start < b.start ? 1 : -1;
+    var ae = a.end || '9999.99', be = b.end || '9999.99';
+    return ae < be ? 1 : ae > be ? -1 : 0;
+  });
+
+  var earliest = items.reduce(function (m, i) { return i.start < m ? i.start : m; }, '9999.99');
+  var live = items.filter(function (i) { return !i.end; }).reduce(function (n, i) { return n + i.count; }, 0);
+  document.getElementById('tr-total').textContent = total + '건';
+  document.getElementById('tr-live').textContent = live + '건';
+  document.getElementById('tr-since').textContent = earliest + ' ~ 현재';
+
+  function periodText(i) {
+    if (!i.end) return i.start + ' ~';
+    return i.start === i.end ? i.start : i.start + ' ~ ' + i.end;
+  }
+
+  var years = [];
+  items.forEach(function (i) { var y = i.start.slice(0, 4); if (years.indexOf(y) === -1) years.push(y); });
+
+  document.getElementById('tr-hist').innerHTML = years.map(function (y) {
+    var rows = items.filter(function (i) { return i.start.slice(0, 4) === y; });
+    var n = rows.reduce(function (sum, i) { return sum + i.count; }, 0);
+    return '<div class="tr-year"><strong>' + y + '</strong><span>' + n + '건</span></div>' +
+      '<ul class="tr-rows">' + rows.map(function (i) {
+        return '<li class="tr-row"><span class="tr-period">' + periodText(i) + '</span>' +
+          '<span class="tr-region">' + i.region + '</span>' +
+          '<span class="tr-facility">' + i.facility +
+          (i.count > 1 ? '<span class="tr-pill">' + i.count + '건</span>' : '') +
+          (i.end ? '' : '<span class="tr-pill live">진행 중</span>') +
+          '</span></li>';
+      }).join('') + '</ul>';
+  }).join('');
+})();
+</script>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="contact-inner">
     <span class="section-label">Contact</span>
     <h2 class="section-title">지금 바로 상담을<br>받아보세요</h2>
-    <p class="section-desc">중대재해처벌법 대응부터 현장 인력 운영까지, 전문가가 직접 안내해 드립니다.</p>
+    <p class="section-desc">중대재해처벌법 대응부터 시공·안전·품질 관리까지, 전문가가 직접 안내해 드립니다.</p>
     <div class="contact-grid-mobile" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 600px;">
       <div class="contact-card">
         <div class="contact-icon">✉️</div>
