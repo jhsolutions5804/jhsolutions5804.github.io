@@ -49,7 +49,8 @@
   }
   .jobs-hero h1 { font-size: clamp(1.5rem, 3.2vw, 2.1rem); font-weight:800; letter-spacing:-0.02em; }
 
-  .jobs-wrap { max-width: 860px; margin:0 auto; padding: 44px 5vw 100px; display:flex; flex-direction:column; gap:20px; }
+  .jobs-wrap { max-width: 860px; margin:0 auto; padding: 44px 5vw 100px; }
+  #jobsList { display:flex; flex-direction:column; gap:20px; }
 
   .job-card {
     background: var(--white); border:1.5px solid #E5EDF7; border-radius:16px;
@@ -75,6 +76,21 @@
   .job-card[hidden] { display: none !important; }
   .job-apply:hover { background:var(--blue-mid); }
 
+
+  .job-card { flex-wrap:wrap; }
+  .job-detail-toggle { background:none; border:none; color:var(--blue); font-weight:700; font-size:0.84rem; cursor:pointer; padding:0; margin-top:6px; font-family:inherit; }
+  .job-detail { flex-basis:100%; border-top:1px solid #E5EDF7; margin-top:6px; padding-top:18px; display:none; }
+  .job-detail.open { display:block; }
+  .job-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px 18px; margin-bottom:18px; }
+  .job-fact dt { font-size:0.72rem; color:var(--gray); font-weight:700; margin-bottom:3px; }
+  .job-fact dd { font-size:0.88rem; font-weight:600; }
+  .job-sec { margin-bottom:16px; }
+  .job-sec h4 { font-size:0.88rem; font-weight:800; color:var(--blue); margin-bottom:6px; }
+  .job-sec ul { list-style:none; }
+  .job-sec li { font-size:0.86rem; color:#374151; line-height:1.7; padding-left:14px; position:relative; }
+  .job-sec li::before { content:'•'; position:absolute; left:0; color:var(--blue-mid); }
+  .job-sec p { font-size:0.86rem; color:#374151; line-height:1.7; }
+
   footer {
     text-align:center; padding:32px 5vw; font-size:0.78rem; color:var(--gray);
     background:var(--gray-light); border-top:1px solid #E5EDF7; line-height:1.9;
@@ -96,27 +112,12 @@
 <section class="jobs-hero">
   <div class="eyebrow">Recruitment</div>
   <h1>진행 중인 채용 공고</h1>
+  <p id="jobsCount" style="margin-top:12px;color:var(--gray);font-size:0.92rem;"></p>
 </section>
 
 <div class="jobs-wrap">
 
-  <!-- 실제 공고 등록 전까지 임시 안내 -->
-  <div class="job-card" style="justify-content:center; text-align:center; flex-direction:column; padding:56px 30px;">
-    <div class="job-title" style="margin-bottom:8px;">현재 진행 중인 채용 공고가 없습니다</div>
-    <div class="job-desc" style="max-width:400px; margin:0 auto;">새로운 공고가 등록되면 이곳에 안내해 드리겠습니다.</div>
-  </div>
-
-  <!-- 예시 구조 (실제 공고 확정 시 이 형태로 추가):
-  <div class="job-card">
-    <div class="job-main">
-      <span class="job-tag">팀명</span>
-      <div class="job-title">모집 제목</div>
-      <div class="job-meta"><span>근무지</span><span>조건1</span><span>조건2</span></div>
-      <div class="job-desc">상세 설명</div>
-    </div>
-    <a href="recruit.html?job=키" class="job-apply">지원하기</a>
-  </div>
-  -->
+  <div id="jobsList"><div class="job-card" style="justify-content:center; text-align:center; flex-direction:column; padding:56px 30px;"><div class="job-desc" style="margin:0 auto;">공고를 불러오는 중입니다…</div></div></div>
 
 </div>
 
@@ -127,5 +128,71 @@
   © 2026 JH Solutions. All rights reserved.
 </footer>
 
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+const firebaseConfig = {
+  apiKey: "AIzaSyCyQxBJ_ftfM0ImBXubmqD5gfzFR54iPmE",
+  authDomain: "p4ph2-fab-506a7.firebaseapp.com",
+  projectId: "p4ph2-fab-506a7",
+  storageBucket: "p4ph2-fab-506a7.firebasestorage.app",
+  messagingSenderId: "36946317914",
+  appId: "1:36946317914:web:c6ad5f3a1b98130c99fe63"
+};
+const db = getFirestore(initializeApp(firebaseConfig));
+const box = document.getElementById('jobsList');
+function empty(msg, sub){
+  box.innerHTML = '';
+  const c = document.createElement('div'); c.className = 'job-card';
+  c.style.cssText = 'justify-content:center; text-align:center; flex-direction:column; padding:56px 30px;';
+  const t = document.createElement('div'); t.className = 'job-title'; t.style.marginBottom = '8px'; t.textContent = msg;
+  const d = document.createElement('div'); d.className = 'job-desc'; d.style.cssText = 'max-width:400px; margin:0 auto;'; d.textContent = sub;
+  c.append(t, d); box.appendChild(c);
+}
+function el(tag, cls, text){ const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+try {
+  const snap = await getDocs(query(collection(db, 'job_postings'), where('status', '==', 'open')));
+  const today = new Date(); today.setHours(0,0,0,0);
+  const jobs = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    .filter(j => (!j.deadline || new Date(j.deadline + 'T23:59:59') >= today) && (!j.startDate || new Date(j.startDate + 'T00:00:00') <= new Date()))
+    .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+  document.getElementById('jobsCount').textContent = jobs.length ? (jobs.length + '개의 채용공고가 진행 중입니다') : '';
+  if (!jobs.length) empty('현재 진행 중인 채용 공고가 없습니다', '새로운 공고가 등록되면 이곳에 안내해 드리겠습니다.');
+  else {
+    box.innerHTML = '';
+    jobs.forEach(j => {
+      const card = el('div', 'job-card'), main = el('div', 'job-main');
+      if (j.team) main.appendChild(el('span', 'job-tag', j.team));
+      main.appendChild(el('div', 'job-title', j.title || ''));
+      const period = (j.startDate || j.deadline) ? ('접수 ' + (j.startDate || '') + ' ~ ' + (j.deadline || '상시')) : '상시 모집';
+      const meta = el('div', 'job-meta');
+      [j.career, j.education, j.empType, j.location, period].filter(Boolean).forEach(m => meta.appendChild(el('span', null, m)));
+      main.appendChild(meta);
+      const detail = el('div', 'job-detail');
+      const facts = [['고용 형태', [j.empType, j.probation ? ('수습 ' + j.probation) : ''].filter(Boolean).join(' · ')], ['급여', j.salary], ['근무 일시', j.workTime], ['근무지', j.location], ['경력', j.career], ['학력', j.education]].filter(f => f[1]);
+      if (facts.length) { const dl = el('dl', 'job-facts'); facts.forEach(f => { const d = el('div', 'job-fact'); d.append(el('dt', null, f[0]), el('dd', null, f[1])); dl.appendChild(d); }); detail.appendChild(dl); }
+      const lines = t => String(t || '').split('\n').map(x => x.trim()).filter(Boolean);
+      const sec = (title, items, asText) => {
+        if (!items.length) return;
+        const w = el('div', 'job-sec'); w.appendChild(el('h4', null, title));
+        if (asText) w.appendChild(el('p', null, items.join(' ')));
+        else { const ul = el('ul'); items.forEach(i => ul.appendChild(el('li', null, i))); w.appendChild(ul); }
+        detail.appendChild(w);
+      };
+      sec('주요 업무', lines(j.duties)); sec('자격 요건', lines(j.requirements)); sec('우대 사항', lines(j.preferred)); sec('복지 및 혜택', lines(j.benefits));
+      sec('채용 절차', [[j.process && ('전형: ' + j.process), j.documents && ('제출 서류: ' + j.documents)].filter(Boolean).join(' / ')].filter(Boolean), true);
+      sec('유의 사항', lines(j.notes));
+      const hasDetail = detail.children.length > 0;
+      if (hasDetail) {
+        const t = el('button', 'job-detail-toggle', '상세 보기 ▾'); t.type = 'button';
+        t.addEventListener('click', () => { const o = detail.classList.toggle('open'); t.textContent = o ? '접기 ▴' : '상세 보기 ▾'; });
+        main.appendChild(t);
+      }
+      const a = el('a', 'job-apply', '지원하기'); a.href = 'recruit.html?job=' + encodeURIComponent(j.id);
+      card.append(main, a); if (hasDetail) card.appendChild(detail); box.appendChild(card);
+    });
+  }
+} catch (e) { console.error(e); empty('공고를 불러오지 못했습니다', '잠시 후 다시 시도해 주세요.'); }
+</script>
 </body>
 </html>
