@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- recruit build: 20261007a · ver: 2026-10-07 (생년월일 제출 검증: 연도 미완성·없는 날짜·범위 밖 입력이 0001-01-01 등으로 저장되지 않도록 차단, 달력 범위 1930~만 15세) -->
+<!DOCTYPE html><!-- recruit build: 20261026a · ver: 2026-10-26 (채용서류 반환·보관·파기 안내 게시 — 채용절차법 제11조, 확인 및 제출 단계 동의 상자 위 / 이전: 생년월일 제출 검증: 연도 미완성·없는 날짜·범위 밖 입력이 0001-01-01 등으로 저장되지 않도록 차단, 달력 범위 1930~만 15세) -->
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
@@ -222,6 +222,11 @@
     .site-head .tabs::-webkit-scrollbar { display: none; }
     .site-head .tabs a { padding: 8px 13px; font-size: 0.86rem; }
   }
+.notice-box { background:var(--gray-light); border:1px solid #DDE6F2; border-radius:10px; padding:16px; font-size:0.8rem; color:var(--black); line-height:1.7; margin-bottom:14px; }
+.notice-box .nb-title { font-weight:700; color:var(--blue); margin-bottom:6px; }
+.notice-box ol { margin:0 0 0 18px; padding:0; }
+.notice-box li { margin-bottom:4px; }
+.notice-box .nb-law { color:var(--gray); font-size:0.74rem; margin-top:6px; }
 </style>
 </head>
 <body>
@@ -365,7 +370,17 @@
 
       <div class="resume-preview" id="resumePreview"></div>
 
-      <div class="agree-box">
+      <div class="notice-box" id="retentionNotice" role="note" aria-label="채용서류 반환·보관·파기 안내">
+              <div class="nb-title">📄 채용서류 반환·보관·파기 안내</div>
+              <ol>
+                <li>홈페이지로 전자 제출하신 지원서와 첨부 파일은 <b>반환 대상이 아닙니다.</b></li>
+                <li>면접 등에서 회사가 요구하여 서면으로 받은 서류는 채용 여부 확정일부터 14일 후 90일까지 반환을 청구하실 수 있으며, 청구하신 날부터 14일 이내에 반환합니다. 청구: 이메일 <a href="mailto:jh.kim@jhsol.kr">jh.kim@jhsol.kr</a></li>
+                <li>지원서는 <b>채용 여부가 확정된 날부터 90일간</b> 보관하고, 그 뒤에는 이름·연락처·주소·생년월일·학력·경력·병역 등 지원서의 개인정보를 「개인정보 보호법」에 따라 <b>지체 없이 파기</b>합니다. 최종 합격자의 서류는 입사 서류로 보관합니다.</li>
+                <li>문의: 인사 담당 · 이메일 <a href="mailto:jh.kim@jhsol.kr">jh.kim@jhsol.kr</a></li>
+              </ol>
+              <div class="nb-law">「채용절차의 공정화에 관한 법률」 제11조에 따른 안내입니다.</div>
+            </div>
+            <div class="agree-box">
         <input type="checkbox" id="f-agree">
         <label for="f-agree">위 기재사항은 사실과 다름이 없으며, 채용 전형 목적으로 개인정보를 수집·이용하는 것에 동의합니다.</label>
       </div>
